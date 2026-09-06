@@ -9,7 +9,7 @@ Set visibility to **Public** or **Unlisted** (not Private — judges must be abl
 ## Title
 
 ```
-Volunteer Shift Matcher — Good Neighbor Agent for Food Banks | Agents for Humans (Strands Agents SDK)
+Volunteer Shift Matcher — Good Neighbor Agent | Agents for Humans (Strands SDK)
 ```
 
 ## Description
