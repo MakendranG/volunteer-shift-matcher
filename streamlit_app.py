@@ -301,7 +301,8 @@ with st.sidebar:
     st.markdown(
         "**Built with the [Strands Agents SDK](https://strandsagents.com/).**  \n"
         "🏘️ Good Neighbor Agents · *Agents for Humans*  \n"
-        "🚀 [Live demo](https://volunteer-shift-matcher.streamlit.app/)  \n"
+        "🚀 [Live app](https://volunteer-shift-matcher.streamlit.app/)  \n"
+        "🌐 [Project page](https://makendrang.github.io/volunteer-shift-matcher/)  \n"
         "📦 [GitHub repo](https://github.com/MakendranG/volunteer-shift-matcher)"
     )
 

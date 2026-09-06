@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Volunteer Shift Matcher · Agents for Humans</title>
+  <meta name="description" content="A Strands Agents SDK agent that fills a food bank's volunteer shifts in seconds — auditable matching plus warm, ready-to-send outreach." />
+  <style>
+    :root{
+      --brand:#0f766e; --brand2:#14b8a6; --cyan:#22d3ee;
+      --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --bg:#f8fafc;
+      --ok:#16a34a; --warn:#b45309; --bad:#dc2626;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      color:var(--ink);background:var(--bg);line-height:1.6;}
+    a{color:var(--brand);text-decoration:none}
+    .wrap{max-width:960px;margin:0 auto;padding:0 20px}
+
+    /* hero */
+    .hero{background:linear-gradient(120deg,#0f766e 0%,#14b8a6 55%,#22d3ee 100%);color:#fff;padding:64px 0 56px;}
+    .hero .wrap{max-width:960px}
+    .pill{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);
+      padding:5px 14px;border-radius:999px;font-size:.8rem;font-weight:600;margin-bottom:18px}
+    .hero h1{font-size:2.7rem;font-weight:800;letter-spacing:-1px;margin-bottom:12px}
+    .hero p{font-size:1.15rem;color:#e6fffb;max-width:680px}
+    .cta{margin-top:28px;display:flex;gap:14px;flex-wrap:wrap}
+    .btn{display:inline-block;padding:13px 24px;border-radius:12px;font-weight:700;font-size:1rem;transition:transform .08s ease}
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:#fff;color:var(--brand)}
+    .btn-ghost{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.5)}
+
+    /* sections */
+    section{padding:52px 0}
+    h2{font-size:1.6rem;font-weight:800;margin-bottom:18px}
+    .lead{color:var(--muted);font-size:1.05rem;max-width:760px}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:26px}
+    .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 2px 10px rgba(2,6,23,.05)}
+    .card .ico{font-size:1.6rem}
+    .card h3{font-size:1.05rem;margin:10px 0 6px}
+    .card p{color:var(--muted);font-size:.95rem}
+
+    .steps{counter-reset:step;margin-top:22px}
+    .step{background:#fff;border:1px solid var(--line);border-left:5px solid var(--brand);border-radius:12px;
+      padding:16px 20px;margin-bottom:12px}
+    .step h3{font-size:1.02rem;margin-bottom:4px}
+    .step p{color:var(--muted);font-size:.95rem}
+
+    .built{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .tag{background:#ecfdf5;color:var(--brand);border:1px solid #a7f3d0;padding:6px 14px;border-radius:999px;font-weight:600;font-size:.9rem}
+
+    footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted);font-size:.9rem}
+    .note{background:#fffbeb;border:1px solid #fde68a;color:#7c5b12;border-radius:12px;padding:14px 18px;margin-top:22px;font-size:.95rem}
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <span class="pill">🏆 Agents for Humans · Good Neighbor track · Built with the Strands Agents SDK</span>
+      <h1>🤝 Volunteer Shift Matcher</h1>
+      <p>Fill a food bank's volunteer shifts in seconds. The AI agent builds an
+         auditable match plan, drafts warm confirmation messages, and writes
+         <em>help-needed</em> broadcasts for any gap it can't fill.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="https://volunteer-shift-matcher.streamlit.app/" target="_blank" rel="noopener">🚀 Launch the live app</a>
+        <a class="btn btn-ghost" href="https://github.com/MakendranG/volunteer-shift-matcher" target="_blank" rel="noopener">📦 View the code</a>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <div class="wrap">
+      <h2>The problem</h2>
+      <p class="lead">Food banks and small nonprofits chronically have unfilled
+         volunteer shifts — not because volunteers don't exist, but because
+         manually matching volunteer availability and skills to open shifts (via
+         spreadsheets or group texts) is slow and error-prone for a coordinator
+         who is already stretched thin. This agent does that matching and outreach
+         for them.</p>
+    </div>
+  </section>
+
+  <section style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+    <div class="wrap">
+      <h2>What it does</h2>
+      <div class="grid">
+        <div class="card"><div class="ico">🧮</div><h3>Auditable matching</h3>
+          <p>A deterministic Python <code>@tool</code> assigns volunteers to shifts by role + availability — reproducible, not an LLM guess.</p></div>
+        <div class="card"><div class="ico">💌</div><h3>Warm confirmations</h3>
+          <p>The LLM drafts a friendly, ready-to-send confirmation message for every assigned volunteer.</p></div>
+        <div class="card"><div class="ico">📣</div><h3>Help-needed broadcasts</h3>
+          <p>For any shift it can't fully fill, it writes a group-text-ready "we still need…" broadcast describing the exact gap.</p></div>
+        <div class="card"><div class="ico">🧩</div><h3>Structured + readable</h3>
+          <p>Outputs both machine-readable JSON and a clean, colour-coded visual summary.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>How it works</h2>
+      <div class="steps">
+        <div class="step"><h3>1 · Input</h3><p>Volunteer data + open shift data go into the agent.</p></div>
+        <div class="step"><h3>2 · Match (Strands tool)</h3><p>The agent calls the deterministic <code>match_shifts</code> tool for the assignments and gaps.</p></div>
+        <div class="step"><h3>3 · Draft (LLM)</h3><p>Amazon Bedrock drafts the confirmation and help-needed messages.</p></div>
+        <div class="step"><h3>4 · Output</h3><p>You get the plan, confirmations, and broadcasts — as JSON and a visual summary.</p></div>
+      </div>
+
+      <h2 style="margin-top:40px">Built with</h2>
+      <div class="built">
+        <span class="tag">Strands Agents SDK</span>
+        <span class="tag">Amazon Bedrock (Claude)</span>
+        <span class="tag">Streamlit</span>
+        <span class="tag">Python</span>
+      </div>
+
+      <div class="note">🔒 This demo uses only synthetic sample data — no real personal
+        information — and no API keys are committed anywhere. The public app runs
+        keyless; you can optionally test the live Bedrock agent with your own
+        temporary AWS credentials.</div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <strong>Volunteer Shift Matcher</strong> · MIT licensed ·
+      <a href="https://volunteer-shift-matcher.streamlit.app/" target="_blank" rel="noopener">Live app</a> ·
+      <a href="https://github.com/MakendranG/volunteer-shift-matcher" target="_blank" rel="noopener">GitHub</a>
+      <br/>Built for the Agents for Humans hackathon — Good Neighbor Agents track.
+    </div>
+  </footer>
+</body>
+</html>
