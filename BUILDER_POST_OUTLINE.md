@@ -50,6 +50,8 @@ genuine build story, not marketing copy.
 
 8. **Close + links**
    Link the public repo and the demo video.
+   - Repo: https://github.com/MakendranG/volunteer-shift-matcher
+   - Demo video: `<add your video link>`
 
 ## Checklist
 

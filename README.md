@@ -8,6 +8,8 @@ broadcast for any shift it can't fully fill. Built with the
 [Strands Agents SDK](https://strandsagents.com/).
 
 > Submission for the **Agents for Humans** hackathon — *Good Neighbor Agents* track.
+>
+> **Repository:** https://github.com/MakendranG/volunteer-shift-matcher
 
 ## The problem
 
@@ -67,7 +69,7 @@ A stranger should be able to clone this and run it cold. Here's everything:
 ### 1. Clone and enter the project
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/MakendranG/volunteer-shift-matcher.git
 cd volunteer-shift-matcher
 ```
 

@@ -85,7 +85,7 @@ the repo for the full data flow.
 
 ## 6. Links to fill in
 
-- **Public repo URL:** `<https://github.com/YOUR_USERNAME/volunteer-shift-matcher>`
+- **Public repo URL:** `https://github.com/MakendranG/volunteer-shift-matcher`
 - **Demo video (≤5 min):** `<YouTube/Vimeo unlisted or public link>`
 - **AWS Builder ID:** `<your Builder ID>`
 - **(Optional) live demo link:** `<if you deploy one — scores higher>`
@@ -96,19 +96,18 @@ the repo for the full data flow.
 ## 7. Pre-submit checklist (mapped to official rules)
 
 Required:
-- [ ] **Text description** completed (section 4 above) — leads with the problem,
+- [x] **Text description** completed (section 4 above) — leads with the problem,
       names Strands, explains what/who/how.
-- [ ] **Public code repo URL** — repo is public, not private.
-- [ ] **All source code + setup instructions** to run cold — README covers this.
-- [ ] **MIT or Apache license visible in the repo About section** — this repo
-      ships an MIT `LICENSE` file. On GitHub: add the license so it shows in the
-      "About" sidebar (GitHub auto-detects the `LICENSE` file; also set it via
-      repo Settings → About if needed).
-- [ ] **README** present. ✅ (in repo)
-- [ ] **Architecture diagram** present. ✅ (`ARCHITECTURE.md`, Mermaid)
+- [x] **Public code repo URL** — repo is public:
+      https://github.com/MakendranG/volunteer-shift-matcher (verified PUBLIC).
+- [x] **All source code + setup instructions** to run cold — README covers this.
+- [x] **MIT or Apache license visible in the repo About section** — MIT `LICENSE`
+      pushed; GitHub auto-detected it (About shows "MIT License", verified via API).
+- [x] **README** present. (in repo)
+- [x] **Architecture diagram** present. (`ARCHITECTURE.md`, Mermaid)
 - [ ] **Demo video (≤5 min)** recorded and uploaded — covers problem / who /
-      why + shows it working end-to-end. Script in `DEMO_SCRIPT.md`.
-- [ ] **AWS Builder ID** entered on the submission form.
+      why + shows it working end-to-end. Script in `DEMO_SCRIPT.md`.  ← TODO (you)
+- [ ] **AWS Builder ID** entered on the submission form.  ← TODO (you)
 
 Scoring boosters (optional):
 - [ ] Live demo link (raises Technical Implementation score).
@@ -116,12 +115,13 @@ Scoring boosters (optional):
 - [ ] builder.aws.com post with "Agents for Humans" in the title (bonus points).
 
 Safety before you push public:
-- [ ] `.env` is gitignored and NOT committed (only `.env.example` is).
-- [ ] No hardcoded API keys anywhere (`git grep -iE "AKIA|secret" -- '*.py'` is clean).
-- [ ] Virtual env (`.venv/`) is gitignored and not committed.
+- [x] `.env` is gitignored and NOT committed (only `.env.example` is) — verified,
+      no `.env`/`.venv` on the remote.
+- [x] No hardcoded API keys anywhere — secret scan clean.
+- [x] Virtual env (`.venv/`) is gitignored and not committed.
 
 AI-tool disclosure (per rules):
-- [ ] This project's code was written new during the submission period with the
+- [x] This project's code was written new during the submission period with the
       help of an AI coding assistant, which the rules explicitly allow. No
       pre-existing/reused AI-built project is incorporated. Disclose if your org
       requires it.
