@@ -16,15 +16,9 @@
 ║                                                                            ║
 ║  CANONICAL URL:  (leave blank — first published here)                      ║
 ║                                                                            ║
-║  COVER IMAGE (optional, 1200×675):  screenshot of the live app's           ║
-║    match-plan view showing the amber "Partial" driver card.               ║
-║                                                                            ║
 ║  BODY:  everything below this comment is the article body — paste as-is.   ║
-║  Replace the "![...](REPLACE_WITH_...)" lines with your own screenshots.   ║
 ╚══════════════════════════════════════════════════════════════════════════╝
 -->
-
-![Volunteer Shift Matcher — hero screenshot of the live app](REPLACE_WITH_HERO_SCREENSHOT_URL)
 
 > ### 🤝 Volunteer Shift Matcher
 > **Fill a food bank's volunteer shifts in seconds.** An AI agent that builds an auditable match plan, drafts warm confirmation messages, and writes *help-needed* broadcasts for any gap it can't fill.
@@ -137,8 +131,6 @@ That discipline paid off the moment I added a public demo.
 ## 🖥️ Making it real: a visual UI + a public demo
 
 A CLI proves the agent works, but people want to *see* it. So I built a **Streamlit** front-end over the exact same agent: paste your shifts and volunteers, click one button, and get a colour-coded match plan, the drafted confirmations, and the help-needed broadcasts.
-
-![The match plan view — colour-coded filled / partial / unfilled shift cards](REPLACE_WITH_MATCHPLAN_SCREENSHOT_URL)
 
 Then I deployed it free on **Streamlit Community Cloud** so anyone can try it: **[volunteer-shift-matcher.streamlit.app](https://volunteer-shift-matcher.streamlit.app/)**
 
