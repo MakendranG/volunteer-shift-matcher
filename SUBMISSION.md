@@ -73,13 +73,14 @@ the repo for the full data flow.
 - **Strands Agents SDK** (the agent, the `@tool`-decorated `match_shifts`
   function, and the LLM drafting layer)
 - **Amazon Bedrock** — Claude Sonnet 4
+- **Streamlit** — visual web UI + public live demo
 - **Python 3.10+**
 
 ---
 
 ## 5. "Built With" tags (Devpost tags field)
 
-`strands-agents-sdk`, `amazon-bedrock`, `python`, `aws`, `ai-agents`
+`strands-agents-sdk`, `amazon-bedrock`, `streamlit`, `python`, `aws`, `ai-agents`
 
 ---
 
@@ -88,7 +89,7 @@ the repo for the full data flow.
 - **Public repo URL:** `https://github.com/MakendranG/volunteer-shift-matcher`
 - **Demo video (≤5 min):** `<YouTube/Vimeo unlisted or public link>`
 - **AWS Builder ID:** `<your Builder ID>`
-- **(Optional) live demo link:** `<if you deploy one — scores higher>`
+- **(Optional) live demo link:** `<Streamlit Community Cloud URL — see DEPLOY_STREAMLIT.md>`
 - **(Bonus) builder.aws.com post:** `<link, title must contain "Agents for Humans">`
 
 ---

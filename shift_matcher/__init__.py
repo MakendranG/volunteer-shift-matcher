@@ -19,10 +19,13 @@ This package exposes:
 
 from .matching import match_shifts, compute_match_plan
 from .agent import build_agent, SYSTEM_PROMPT
+from .pipeline import run_offline, run_with_agent
 
 __all__ = [
     "match_shifts",
     "compute_match_plan",
     "build_agent",
     "SYSTEM_PROMPT",
+    "run_offline",
+    "run_with_agent",
 ]

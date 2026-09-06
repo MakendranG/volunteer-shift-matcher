@@ -109,6 +109,24 @@ python run_agent.py --offline
 python run_agent.py --shifts my_shifts.json --volunteers my_volunteers.json
 ```
 
+### 4b. Or launch the visual web UI (recommended for the demo)
+
+A [Streamlit](https://streamlit.io/) front-end over the same Strands agent — edit
+shifts/volunteers, click a button, and see a colour-coded match plan and the
+drafted messages:
+
+```bash
+streamlit run streamlit_app.py
+```
+
+Then open the URL it prints (default http://localhost:8501). Use the sidebar to
+switch between **Live agent (Strands + Bedrock)** and **Offline** mode. If live
+mode has no credentials, the app automatically falls back to offline.
+
+**Live public demo:** deployable free on
+[Streamlit Community Cloud](https://streamlit.io/cloud) — point it at this repo
+with `streamlit_app.py` as the entrypoint (see `DEPLOY_STREAMLIT.md`).
+
 ### 5. Run the tests
 
 ```bash

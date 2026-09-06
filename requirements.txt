@@ -4,5 +4,7 @@ strands-agents>=1.0.0
 strands-agents-tools>=0.2.0
 # Loads config from a local .env file (keeps API keys out of the code)
 python-dotenv>=1.0.0
+# Visual web UI (streamlit run streamlit_app.py)
+streamlit>=1.36.0
 # Test runner
 pytest>=8.0.0
