@@ -1,5 +1,7 @@
 # Deploy the visual demo to Streamlit Community Cloud (free, public URL)
 
+> ✅ **Live now:** https://volunteer-shift-matcher.streamlit.app/
+
 This gives you the **public live demo link** the hackathon rewards (higher
 Technical Implementation score) — without needing AgentCore. GitHub Pages will
 **not** work here, because Streamlit runs a live Python server (GitHub Pages only

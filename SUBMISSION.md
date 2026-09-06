@@ -89,7 +89,7 @@ the repo for the full data flow.
 - **Public repo URL:** `https://github.com/MakendranG/volunteer-shift-matcher`
 - **Demo video (≤5 min):** `<YouTube/Vimeo unlisted or public link>`
 - **AWS Builder ID:** `<your Builder ID>`
-- **(Optional) live demo link:** `<Streamlit Community Cloud URL — see DEPLOY_STREAMLIT.md>`
+- **(Optional) live demo link:** https://volunteer-shift-matcher.streamlit.app/
 - **(Bonus) builder.aws.com post:** `<link, title must contain "Agents for Humans">`
 
 ---
@@ -111,7 +111,8 @@ Required:
 - [ ] **AWS Builder ID** entered on the submission form.  ← TODO (you)
 
 Scoring boosters (optional):
-- [ ] Live demo link (raises Technical Implementation score).
+- [x] Live demo link (raises Technical Implementation score):
+      **https://volunteer-shift-matcher.streamlit.app/** (Streamlit Community Cloud).
 - [ ] AgentCore deployment (see `DEPLOY_AGENTCORE.md`) — raises Technical score.
 - [ ] builder.aws.com post with "Agents for Humans" in the title (bonus points).
 

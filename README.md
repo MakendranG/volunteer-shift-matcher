@@ -9,7 +9,8 @@ broadcast for any shift it can't fully fill. Built with the
 
 > Submission for the **Agents for Humans** hackathon — *Good Neighbor Agents* track.
 >
-> **Repository:** https://github.com/MakendranG/volunteer-shift-matcher
+> **🚀 Live demo:** https://volunteer-shift-matcher.streamlit.app/
+> **📦 Repository:** https://github.com/MakendranG/volunteer-shift-matcher
 
 ## The problem
 
@@ -128,9 +129,11 @@ panel: a visitor can paste their own **temporary/STS** credentials to run the re
 Strands + Bedrock agent on their own account. Credentials are session-only and
 never stored — their usage bills to their account, not the host's.
 
-**Live public demo:** deployable free on
-[Streamlit Community Cloud](https://streamlit.io/cloud) — point it at this repo
-with `streamlit_app.py` as the entrypoint (see `DEPLOY_STREAMLIT.md`).
+**Live public demo:** **https://volunteer-shift-matcher.streamlit.app/** — hosted
+free on [Streamlit Community Cloud](https://streamlit.io/cloud) (see
+`DEPLOY_STREAMLIT.md`). The public demo runs keyless in Offline mode; use the
+sidebar "Test the LIVE agent with your own AWS" panel to try the real
+Strands + Bedrock path with your own temporary credentials.
 
 ### 5. Run the tests
 
