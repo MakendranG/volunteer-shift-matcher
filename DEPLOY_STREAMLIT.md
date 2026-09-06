@@ -24,6 +24,27 @@ the cloud by adding AWS credentials as Streamlit **secrets** (below). Only do th
 with a tightly scoped, Bedrock-only IAM user — never commit keys. Note that every
 public visitor's click would then spend Bedrock tokens on your account.
 
+## Let visitors test the LIVE agent on THEIR OWN AWS (bring-your-own credentials)
+
+The app includes an optional sidebar panel — **"🔐 Test the LIVE agent with your
+own AWS"** — so a judge or visitor can run the real Strands + Bedrock agent using
+their **own** AWS account. This is the safe way to offer a live experience without
+exposing your keys:
+
+- The visitor pastes **temporary/STS session credentials** (Access Key ID, Secret
+  Access Key, **Session Token**, region). Get them via IAM Identity Center / SSO
+  "access keys", or `aws sts get-session-token --duration-seconds 3600`.
+- Credentials are held **only in that browser session**, used to build a per-request
+  boto3 session for the Bedrock call, and are **never stored, logged, or committed**.
+  Closing the tab clears them.
+- Their Bedrock usage bills to **their** account, not yours.
+- Their AWS identity needs `bedrock:InvokeModel` permission and Bedrock model
+  access enabled for Claude in the chosen region.
+
+A note on "sign in with AWS console session": a web app cannot read or borrow a
+visitor's AWS Console login (browser cross-site cookie isolation + AWS design), so
+short-lived STS credentials are the practical, secure equivalent.
+
 ## Steps
 
 1. Make sure this repo is pushed to GitHub (it is:

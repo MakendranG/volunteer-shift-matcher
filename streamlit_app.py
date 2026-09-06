@@ -154,6 +154,58 @@ with st.sidebar:
             "This public demo runs fully without any keys. If Live mode is "
             "selected without credentials, it falls back to Offline automatically."
         )
+
+    # ------------------------------------------------------------------ #
+    # Optional: bring-your-own TEMPORARY AWS credentials so a visitor can
+    # run the live Strands + Bedrock agent on THEIR OWN account. These are
+    # held only in this browser session (Streamlit session_state), used to
+    # build the agent for the request, and never stored, logged, or committed.
+    # ------------------------------------------------------------------ #
+    byo_creds: dict | None = None
+    with st.expander("🔐 Test the LIVE agent with your own AWS (optional)"):
+        st.markdown(
+            "Want to see the **real Strands + Amazon Bedrock** agent draft the "
+            "messages? Use your **own** AWS account with **temporary** credentials "
+            "— nothing is stored on our side, and your usage bills to your account."
+        )
+        st.markdown(
+            "**Get temporary credentials (recommended, expire automatically):**\n"
+            "- If you use AWS IAM Identity Center / SSO: open your access portal → "
+            "your account → **Access keys** → copy the *session* credentials "
+            "(they include a session token), **or**\n"
+            "- run in your terminal:\n"
+            "  ```bash\n"
+            "  aws sts get-session-token --duration-seconds 3600\n"
+            "  ```\n"
+            "  and paste the returned values below."
+        )
+        byo_key = st.text_input("AWS Access Key ID", type="password", key="byo_key")
+        byo_secret = st.text_input("AWS Secret Access Key", type="password", key="byo_secret")
+        byo_token = st.text_area(
+            "AWS Session Token (required for temporary/STS credentials)",
+            height=90,
+            key="byo_token",
+        )
+        byo_region = st.text_input("AWS Region", value="us-west-2", key="byo_region")
+        st.caption(
+            "🔒 Session-only: these values live in your browser session, are used "
+            "only to call Bedrock for your request, and are never saved or logged. "
+            "Close the tab to clear them. Best practice: use an IAM identity scoped "
+            "to `bedrock:InvokeModel` and short-lived STS credentials."
+        )
+        if byo_key and byo_secret:
+            byo_creds = {
+                "aws_access_key_id": byo_key.strip(),
+                "aws_secret_access_key": byo_secret.strip(),
+                "aws_session_token": (byo_token or "").strip(),
+                "region_name": (byo_region or "us-west-2").strip(),
+            }
+            if not byo_token.strip():
+                st.warning(
+                    "No session token provided — this only works with *permanent* "
+                    "keys. Temporary/STS credentials require the session token."
+                )
+
     st.divider()
     st.markdown(
         "**Built with the [Strands Agents SDK](https://strandsagents.com/).**  \n"
@@ -211,16 +263,21 @@ if run:
         st.error(f"Invalid JSON in the input: {exc}")
         st.stop()
 
-    use_live = mode.startswith("Live")
+    use_live = mode.startswith("Live") or byo_creds is not None
     output = None
 
     if use_live:
-        with st.spinner("Running the Strands agent on Amazon Bedrock…"):
+        spinner_msg = (
+            "Running the Strands agent on Amazon Bedrock with your credentials…"
+            if byo_creds is not None
+            else "Running the Strands agent on Amazon Bedrock…"
+        )
+        with st.spinner(spinner_msg):
             try:
-                output = run_with_agent(shifts, volunteers)
+                output = run_with_agent(shifts, volunteers, credentials=byo_creds)
             except Exception as exc:  # noqa: BLE001
                 st.warning(
-                    f"Live agent unavailable ({type(exc).__name__}). "
+                    f"Live agent unavailable ({type(exc).__name__}: {exc}). "
                     "Falling back to the deterministic offline matcher."
                 )
                 output = run_offline(shifts, volunteers)

@@ -123,6 +123,11 @@ Then open the URL it prints (default http://localhost:8501). Use the sidebar to
 switch between **Live agent (Strands + Bedrock)** and **Offline** mode. If live
 mode has no credentials, the app automatically falls back to offline.
 
+The sidebar also has an optional **"🔐 Test the LIVE agent with your own AWS"**
+panel: a visitor can paste their own **temporary/STS** credentials to run the real
+Strands + Bedrock agent on their own account. Credentials are session-only and
+never stored — their usage bills to their account, not the host's.
+
 **Live public demo:** deployable free on
 [Streamlit Community Cloud](https://streamlit.io/cloud) — point it at this repo
 with `streamlit_app.py` as the entrypoint (see `DEPLOY_STREAMLIT.md`).

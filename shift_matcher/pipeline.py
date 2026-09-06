@@ -102,8 +102,19 @@ def _prompt_for(shifts: list[dict], volunteers: list[dict]) -> str:
     )
 
 
-def run_with_agent(shifts: list[dict], volunteers: list[dict]) -> dict[str, Any]:
+def run_with_agent(
+    shifts: list[dict],
+    volunteers: list[dict],
+    credentials: dict | None = None,
+) -> dict[str, Any]:
     """Run the full Strands agent: tool-based matching + LLM-drafted messages.
+
+    Args:
+        shifts: open shifts.
+        volunteers: volunteer pool.
+        credentials: optional temporary AWS credentials (session-only) passed
+            through to ``build_agent`` so a demo visitor can run the live agent on
+            their own AWS account. See ``build_agent`` for accepted keys.
 
     Raises on any failure (missing creds, Bedrock error) so callers can decide
     whether to fall back to ``run_offline``.
@@ -111,7 +122,7 @@ def run_with_agent(shifts: list[dict], volunteers: list[dict]) -> dict[str, Any]
     # Imported lazily so offline mode never requires the SDK/credentials.
     from .agent import build_agent
 
-    agent = build_agent(callback_handler=None)
+    agent = build_agent(callback_handler=None, credentials=credentials)
     result = agent(_prompt_for(shifts, volunteers))
 
     text = ""
