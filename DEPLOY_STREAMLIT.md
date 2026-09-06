@@ -7,11 +7,22 @@ serves static files).
 
 ## Which mode runs in the cloud?
 
-- **Offline mode** works out of the box on Streamlit Cloud with zero secrets —
-  perfect for a public demo anyone can click.
-- **Live agent mode** (Strands + Amazon Bedrock) also works *if* you add AWS
-  credentials as Streamlit **secrets** (below). Only do this with a tightly
-  scoped, Bedrock-only IAM user — never commit keys.
+**This project's public demo is deployed KEYLESS (recommended).** With no AWS
+secrets configured, the app auto-detects that and defaults to **Offline mode**,
+so:
+- the public link always works for any visitor,
+- it can never error on missing credentials,
+- it can never run up Bedrock charges on your account.
+
+Offline mode still demonstrates the full product: the deterministic matching, gap
+detection, colour-coded plan, confirmations, and help-needed broadcasts. Only the
+message *wording* is templated instead of LLM-drafted. The full Strands + Amazon
+Bedrock agent path is shown in the demo video / `python run_agent.py` locally.
+
+Optional (not used for the public deploy): you *can* enable **Live agent mode** in
+the cloud by adding AWS credentials as Streamlit **secrets** (below). Only do this
+with a tightly scoped, Bedrock-only IAM user — never commit keys. Note that every
+public visitor's click would then spend Bedrock tokens on your account.
 
 ## Steps
 
