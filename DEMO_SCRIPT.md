@@ -1,59 +1,110 @@
-# Demo Video Script & Storyboard
+# Demo Video Script (≤ 5 minutes)
 
-**Target length:** ≤ 5:00 (aim for 3:30–4:00 — shorter is stronger).
-**Format allowed:** slides + screen recording + voiceover. No on-camera face needed.
-**Required pitch beats (per hackathon rules):** (1) the problem, (2) who it's for,
-(3) why it matters — plus a clear demo of the project *working end-to-end*.
-**Make Strands impossible to miss:** say "Strands Agents SDK" out loud and show it
-on screen (the `@tool` + `Agent` code, and the tool being called in the run).
+**Total target: ~4:15** (leaves buffer under the 5:00 hard cap).
+**Format:** screen recording of the live app + voiceover. No camera needed.
+**Required beats (hackathon rules):** (1) the problem, (2) who it's for, (3) why it
+matters — plus a clear working demo. **Say "Strands Agents SDK" out loud and show it.**
 
-Recording tips:
-- Do a dry run of `python run_agent.py` before recording so the model output is warm.
-- Increase terminal font size (18–22pt) so code and output are readable.
-- If your live Bedrock run is slow or flaky on the day, record `--offline` as backup;
-  it produces the same match plan and template messages with no network dependency.
+**Links on screen / in description:**
+- Live app: https://volunteer-shift-matcher.streamlit.app/
+- Project page: https://makendrang.github.io/volunteer-shift-matcher/
+- Code: https://github.com/MakendranG/volunteer-shift-matcher
 
----
-
-## Storyboard (6 scenes)
-
-| # | Time | On screen | Voiceover |
-|---|------|-----------|-----------|
-| 1 | 0:00–0:35 | Title slide: "Volunteer Shift Matcher — a Good Neighbor Agent, built with the Strands Agents SDK." Then a photo/illustration of a food-bank coordinator buried in a spreadsheet + group texts. | *(Problem)* "Food banks and small nonprofits constantly have volunteer shifts that go unfilled — not because volunteers don't exist, but because one stretched-thin coordinator has to manually cross-reference everyone's availability and skills against every open shift, using spreadsheets and group texts. It's slow, and shifts fall through the cracks." |
-| 2 | 0:35–1:00 | Slide: "Who it's for" — icon of a volunteer coordinator; "Food banks • pantries • small nonprofits." | *(Who + why)* "This is for volunteer coordinators — the people holding a community together in their spare time. When a shift goes unfilled, meals don't get sorted and neighbors don't get served. Saving them time directly translates into more people helped." |
-| 3 | 1:00–1:40 | Screen recording: open `ARCHITECTURE.md`, show the Mermaid diagram. Briefly point at the flow: Volunteer + Shift data → Strands Agent → `match_shifts` tool → LLM drafting → output. | *(How it works)* "It's a Strands agent. Here's the flow: volunteer and shift data go into the agent. The agent calls a deterministic tool called `match_shifts` — plain Python, so the assignments are auditable, not an LLM guess. Then the agent's language model turns that plan into warm, ready-to-send messages." |
-| 4 | 1:40–2:20 | Screen recording: open `shift_matcher/matching.py`, scroll to the `@tool def match_shifts`. Then open `shift_matcher/agent.py`, show `Agent(model=..., tools=[match_shifts], system_prompt=...)`. | *(Strands, front and center)* "Here's the actual Strands code. `match_shifts` is a custom tool — just a Python function with the `@tool` decorator. And here's the agent itself: built with the Strands Agents SDK, given the tool and a system prompt. This is a genuine agent that reasons and calls tools — not a single prompt." |
-| 5 | 2:20–3:50 | Screen recording: run `python run_agent.py`. Let the MATCH PLAN print. Highlight **S3 driver — PARTIAL (1/2)** and the GAP line. Scroll through a couple of CONFIRMATION MESSAGES, then the HELP-NEEDED BROADCAST for S3. | *(Working demo)* "Let's run it. The agent ingests six shifts and eight volunteers, calls the tool, and produces a match plan. Five shifts are fully filled. And notice this one — Saturday's driver shift — the agent flags it as only partially filled: it found one driver but needs two. That's the realistic case coordinators live in. For every assigned volunteer it drafts a warm confirmation… and for that gap, it writes a 'help needed' broadcast you can paste straight into a group text: 'we still need one more driver for Saturday, 10 to 1.'" |
-| 6 | 3:50–4:20 | Slide: recap 3 bullets — "Auditable matching (Python tool) • Warm outreach (LLM) • Flags the gaps, doesn't hide them." Then: "Built with the Strands Agents SDK. MIT licensed. Live demo: volunteer-shift-matcher.streamlit.app · Repo: github.com/MakendranG/volunteer-shift-matcher." | *(Close)* "So: deterministic, auditable matching from a Strands tool; warm, human outreach from the model; and it's honest about the shifts it can't fill. It takes a job that eats a coordinator's evening and does it in seconds. Built with the Strands Agents SDK. Thanks for watching." |
+**Before you hit record:**
+- Open the live app in a clean browser (hide bookmarks bar), zoom to ~110%.
+- Have the GitHub repo open in a second tab (to show `matching.py` + `agent.py`).
+- Do one warm-up run so it's responsive.
+- Silence notifications.
 
 ---
 
-## Tight voiceover script (continuous read, ~40s under budget)
+## ⏱️ Timed shot list + voiceover
 
-> Food banks and small nonprofits constantly have volunteer shifts that go unfilled — not because volunteers don't exist, but because one stretched-thin coordinator has to manually match everyone's availability and skills to every open shift, with spreadsheets and group texts. It's slow, and shifts fall through the cracks.
+### 0:00–0:30 — Hook + the problem  *(screen: title slide, or the app hero)*
+> "Every week, food banks and small nonprofits leave volunteer shifts unfilled —
+> and it's usually not because volunteers don't exist. It's because one
+> coordinator, already stretched thin, has to manually match everyone's
+> availability and skills to every open shift, using spreadsheets and group texts.
+> It's slow, it's error-prone, and shifts slip through the cracks. When a shift
+> goes unfilled, food doesn't get sorted and neighbors don't get served."
+
+### 0:30–0:50 — Who it's for + why it matters  *(screen: app hero / "what problem" expander)*
+> "This is for volunteer coordinators at food banks and small nonprofits — the
+> people holding a community together in their spare time. If we can do their
+> matching and outreach in seconds, they get their evening back and more neighbors
+> get helped. That's what this agent does."
+
+### 0:50–1:15 — What it is + Strands callout  *(screen: the live app, top of page)*
+> "Meet the Volunteer Shift Matcher — a Good Neighbor agent built with the
+> **Strands Agents SDK**. You give it your open shifts and your volunteers, and it
+> produces a match plan, drafts a warm confirmation for every assigned volunteer,
+> and writes a 'help needed' broadcast for any shift it can't fully fill. Here's
+> the live app — anyone can use it, no sign-up."
+
+### 1:15–2:20 — The working demo  *(screen: edit inputs → click Match shifts → results)*
+> "On the left are six open shifts across a weekend; on the right, eight
+> volunteers with their skills and availability. I'll click **Match shifts**."
 >
-> This is for those coordinators. When a shift goes unfilled, meals don't get sorted and neighbors don't get served — so saving them time directly helps more people.
+> *(click; results appear)*
 >
-> It's a Strands agent. Volunteer and shift data go in. The agent calls a deterministic tool, `match_shifts` — plain Python, so the assignments are auditable, not a guess — and then the model turns that plan into ready-to-send messages.
+> "Instantly: five shifts fully filled, and — this is the important part — one
+> flagged as only **partially filled**. The Saturday driver shift needs two people
+> but only one driver is available. A real coordinator lives in this imperfect
+> world, and the agent doesn't hide it — it surfaces the gap."
 >
-> Here's the Strands code: `match_shifts` is a custom tool, just a Python function with the `@tool` decorator, and here's the agent, built with the Strands Agents SDK, wired to that tool.
+> *(scroll to confirmations)*
 >
-> Let's run it. Six shifts, eight volunteers. Five shifts fill completely. This one — Saturday's driver shift — the agent flags as partially filled: one driver found, two needed. For every match it drafts a warm confirmation, and for the gap it writes a 'help needed' broadcast ready for a group text.
+> "For every assigned volunteer, it's drafted a warm, ready-to-send confirmation
+> with their role, date, and time."
 >
-> Deterministic matching, warm outreach, honest about the gaps — a coordinator's evening of work, done in seconds. Built with the Strands Agents SDK. Thanks for watching.
+> *(scroll to the broadcast)*
+>
+> "And for that gap, it wrote a group-text-ready broadcast: 'we still need one more
+> driver for Saturday, 10 to 1.' Copy, paste, send."
+
+### 2:20–2:45 — Structured output  *(screen: expand the JSON + download button)*
+> "It's not just pretty — everything's also structured JSON you can pipe into a
+> scheduling system, plus a one-click download. Human-readable and
+> machine-readable from the same run."
+
+### 2:45–3:45 — How it works / the Strands architecture  *(screen: switch to repo — matching.py then agent.py; optionally the architecture diagram)*
+> "Here's what makes it a real agent, not a single prompt. The matching itself is
+> a deterministic Strands tool — `match_shifts` — just a Python function with the
+> `@tool` decorator. It handles role eligibility, time coverage, and no
+> double-booking, so the assignments are auditable and reproducible, never an LLM
+> guess."
+>
+> *(switch to agent.py)*
+>
+> "And here's the agent: built with the Strands Agents SDK, given that tool and a
+> system prompt, using Amazon Bedrock and Claude as the model. The Strands agent
+> loop reasons, calls the tool for the facts, then uses the LLM only for the human
+> part — writing the messages. Deterministic tool for correctness; LLM for the warm
+> voice."
+
+### 3:45–4:15 — Close  *(screen: back to the live app, or a closing slide with links)*
+> "So: a job that eats a coordinator's evening, done in seconds — with an
+> auditable plan, warm outreach, and honesty about the shifts it can't fill.
+> It's open-source under MIT, it uses only synthetic data, and you can try the
+> live app right now at volunteer-shift-matcher.streamlit.app. Built with the
+> Strands Agents SDK, for the Agents for Humans hackathon. Thanks for watching."
 
 ---
 
-## Exact commands to show on screen
+## Optional: show the LIVE Bedrock agent (adds ~20s)
 
-```bash
-# 1. show it's real code
-sed -n '/@tool/,/return compute_match_plan/p' shift_matcher/matching.py   # the tool
-sed -n '/def build_agent/,/return Agent/p' shift_matcher/agent.py         # the agent
+The public app runs keyless (offline-safe). If you want to show the *real*
+LLM-drafted messages on camera, before recording open the sidebar
+**"🔐 Test the LIVE agent with your own AWS"** panel and paste your own temporary
+STS credentials, then run — the badge flips to "🟢 Live Strands agent · Amazon
+Bedrock" and the messages are model-written. Mention: "these messages are drafted
+live by Claude on Amazon Bedrock." Keep total under 5:00.
 
-# 2. run the live agent (Strands + Bedrock)
-python run_agent.py
+## Trimming tips (if you run long)
+- Cut the JSON section (2:20–2:45) first; it's the most expendable.
+- Keep the partial-shift moment and the Strands code — those score the most.
 
-# 3. backup if network is flaky on the day (no LLM/creds needed):
-python run_agent.py --offline
-```
+## Recording tools
+- **OBS Studio** (free, all platforms): Screen Capture + Audio Input sources.
+- macOS: QuickTime screen recording. Windows: Xbox Game Bar (Win+G).
+- Export 1080p / 30fps, upload to YouTube (Public or Unlisted — not Private).
