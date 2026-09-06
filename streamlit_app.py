@@ -19,6 +19,7 @@ slow and error-prone for an already-stretched coordinator.
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
 import streamlit as st
@@ -123,19 +124,36 @@ def render_messages(output: dict) -> None:
 # --------------------------------------------------------------------------- #
 with st.sidebar:
     st.header("⚙️ How to run")
+
+    # Auto-detect whether Bedrock credentials are available. If not (e.g. a public
+    # Streamlit Community Cloud deploy with no secrets), default to Offline so the
+    # demo always works for any visitor.
+    creds_available = bool(
+        os.getenv("AWS_ACCESS_KEY_ID")
+        or os.getenv("AWS_BEARER_TOKEN_BEDROCK")
+        or os.getenv("AWS_PROFILE")
+    )
+    options = ["Live agent (Strands + Bedrock)", "Offline (deterministic only)"]
+    default_index = 0 if creds_available else 1
+
     mode = st.radio(
         "Matching mode",
-        ["Live agent (Strands + Bedrock)", "Offline (deterministic only)"],
+        options,
+        index=default_index,
         help=(
             "Live agent uses the Strands Agents SDK with Amazon Bedrock to draft "
             "natural-language messages. Offline uses the deterministic matcher and "
-            "template messages — no AWS credentials required (great for a demo)."
+            "template messages — no AWS credentials required (great for a public demo)."
         ),
     )
-    st.caption(
-        "Live mode needs AWS Bedrock credentials in the environment. "
-        "If it fails, the app automatically falls back to offline mode."
-    )
+    if creds_available:
+        st.caption("✅ AWS credentials detected — Live agent mode is available.")
+    else:
+        st.caption(
+            "ℹ️ No AWS credentials detected, so Offline mode is the default. "
+            "This public demo runs fully without any keys. If Live mode is "
+            "selected without credentials, it falls back to Offline automatically."
+        )
     st.divider()
     st.markdown(
         "**Built with the [Strands Agents SDK](https://strandsagents.com/).**  \n"
