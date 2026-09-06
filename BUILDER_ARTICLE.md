@@ -16,45 +16,85 @@
 ║                                                                            ║
 ║  CANONICAL URL:  (leave blank — first published here)                      ║
 ║                                                                            ║
-║  COVER IMAGE (optional, 1200×675):  a screenshot of the live app's         ║
+║  COVER IMAGE (optional, 1200×675):  screenshot of the live app's           ║
 ║    match-plan view showing the amber "Partial" driver card.               ║
 ║                                                                            ║
 ║  BODY:  everything below this comment is the article body — paste as-is.   ║
+║  Replace the "![...](REPLACE_WITH_...)" lines with your own screenshots.   ║
 ╚══════════════════════════════════════════════════════════════════════════╝
 -->
 
-*How I built an AI agent that fills a food bank's empty volunteer shifts in seconds — using a deterministic tool for the facts and Amazon Bedrock for the human touch.*
+![Volunteer Shift Matcher — hero screenshot of the live app](REPLACE_WITH_HERO_SCREENSHOT_URL)
 
-**Try it live:** [volunteer-shift-matcher.streamlit.app](https://volunteer-shift-matcher.streamlit.app/)
-**Code (MIT):** [github.com/MakendranG/volunteer-shift-matcher](https://github.com/MakendranG/volunteer-shift-matcher)
-**Track:** Good Neighbor Agents · *Agents for Humans* hackathon
+> ### 🤝 Volunteer Shift Matcher
+> **Fill a food bank's volunteer shifts in seconds.** An AI agent that builds an auditable match plan, drafts warm confirmation messages, and writes *help-needed* broadcasts for any gap it can't fill.
+>
+> 🚀 **[Live demo](https://volunteer-shift-matcher.streamlit.app/)**  ·  📦 **[Code (MIT)](https://github.com/MakendranG/volunteer-shift-matcher)**  ·  🏘️ *Agents for Humans — Good Neighbor track*
 
-## The problem that started it
+---
 
-I didn't start with an AI idea. I started with a person.
+## 🧭 TL;DR
 
-Picture the volunteer coordinator at a small food bank. She has a spreadsheet of who's free and when, a list of shifts that need covering this weekend, and a group chat that never stops buzzing. Every week she plays the same exhausting game: cross-referencing availability against skills against shift times, in her head, while doing five other jobs. Shifts fall through the cracks — and when a shift goes unfilled, food doesn't get sorted and neighbors don't get served.
+| | |
+|---|---|
+| **Who it helps** | Volunteer coordinators at food banks & small nonprofits |
+| **The pain** | Manually matching volunteer availability + skills to open shifts is slow and error-prone |
+| **What it does** | Auto-matches volunteers → shifts, drafts confirmations, flags & broadcasts gaps |
+| **How** | A deterministic Strands `@tool` for the facts + Amazon Bedrock (Claude) for the human voice |
+| **Try it** | [Live app](https://volunteer-shift-matcher.streamlit.app/) · runs keyless, no sign-up |
 
-That's the exact pain the *Good Neighbor Agents* track calls out: *"matching volunteers to the shifts a food bank actually needs."* So I wrote my one-sentence problem statement and refused to move until it was concrete:
+---
 
-> Food banks and small nonprofits chronically have unfilled volunteer shifts — not because volunteers don't exist, but because manually matching availability and skills to open shifts is slow and error-prone for a coordinator who is already stretched thin.
+## 💡 The problem that started it
+
+I didn't start with an AI idea. **I started with a person.**
+
+Picture the volunteer coordinator at a small food bank. She has a spreadsheet of who's free and when, a list of shifts that need covering this weekend, and a group chat that never stops buzzing. Every week she plays the same exhausting game: cross-referencing availability against skills against shift times, in her head, while doing five other jobs. Shifts fall through the cracks — and when a shift goes unfilled, **food doesn't get sorted and neighbors don't get served.**
+
+That's the exact pain the *Good Neighbor Agents* track calls out: *"matching volunteers to the shifts a food bank actually needs."* So I wrote a one-sentence problem statement and refused to move until it was concrete:
+
+> 📌 Food banks and small nonprofits chronically have unfilled volunteer shifts — not because volunteers don't exist, but because manually matching availability and skills to open shifts is slow and error-prone for a coordinator who is already stretched thin.
 
 Everything I built traces back to that sentence.
 
-## The key design decision: deterministic tool + LLM drafting
+---
+
+## 🏗️ The architecture
+
+```mermaid
+flowchart LR
+    V["🙋 Volunteer data"] --> AG
+    S["📅 Shift data"] --> AG
+    subgraph AG["🤖 shift_matcher_agent (Strands)"]
+        direction TB
+        L["Agent loop (LLM)"] -->|calls| T["🧮 match_shifts @tool<br/>deterministic Python"]
+        T -->|match plan| D["✍️ LLM drafting layer"]
+    end
+    AG --> O["🧩 JSON + visual summary"]
+    O --> C["💌 Confirmations"]
+    O --> B["📣 Help-needed broadcasts"]
+```
+
+The design in one line: **let deterministic code own the decisions that must be correct, and let the LLM own the language.**
+
+---
+
+## 🎯 The key design decision: deterministic tool + LLM drafting
 
 The temptation with agents is to throw everything at the model: *"here are the shifts and volunteers, figure it out."* But volunteer scheduling is a place where a wrong answer has real consequences — you don't want an LLM hallucinating that someone is available when they're not.
 
 So I split the work in two:
 
-1. **A deterministic Python tool does the matching.** Who is assigned to which shift is computed in plain, auditable Python — role eligibility, full time-window coverage, no double-booking, and honest flagging of any shift that can't be filled. A coordinator (or a judge) can read exactly *why* each decision was made.
-2. **The LLM does what LLMs are great at — the human touch.** It takes that verified plan and drafts warm, ready-to-send confirmation messages for each volunteer, plus "help needed" broadcasts for the gaps.
+- 🧮 **A deterministic Python tool does the matching.** Role eligibility, full time-window coverage, no double-booking, and honest flagging of any shift that can't be filled — all in plain, auditable Python. A coordinator (or a judge) can read exactly *why* each decision was made.
+- ✍️ **The LLM does what it's great at — the human touch.** It takes the verified plan and drafts warm, ready-to-send confirmations and "help needed" broadcasts.
 
-This is what makes it a genuine agent rather than a single prompt: the model reasons, calls a tool, and composes language around the tool's output.
+That division is what makes it a **genuine agent** rather than a single prompt.
 
-## Building it with the Strands Agents SDK
+---
 
-The Strands Agents SDK made this split almost trivial to express. A custom tool is just a decorated Python function:
+## 🛠️ Building it with the Strands Agents SDK
+
+The Strands Agents SDK made this split almost trivial. A custom tool is just a decorated Python function:
 
 ```python
 from strands import tool
@@ -65,7 +105,7 @@ def match_shifts(shifts: list[dict], volunteers: list[dict]) -> dict:
     return compute_match_plan(shifts, volunteers)
 ```
 
-And the agent is a few lines that wire the tool and a system prompt to a model:
+And the agent wires that tool and a system prompt to a model:
 
 ```python
 from strands import Agent
@@ -82,48 +122,64 @@ agent = Agent(
 )
 ```
 
-The system prompt instructs the agent to *always* call `match_shifts` for the assignments (never guess), then use the result to draft the messages and return a single structured JSON object. Strands runs the agent loop — reason → call tool → compose response — and I get back both the structured plan and the natural language, every time.
-
-## Using AWS
-
-The model provider is **Amazon Bedrock** (Claude Sonnet 4), which is the Strands default. A detail I'm proud of: **there are no hardcoded credentials anywhere.** The agent reads everything from the environment (or an IAM role), and `.env` is gitignored so no key can ever be committed.
-
-That credential discipline paid off when I added a visual UI and a public demo.
-
-## Making it real: a visual UI and a public demo
-
-A CLI proves the agent works, but judges (and coordinators) want to *see* it. So I built a **Streamlit** front-end over the exact same agent: paste your shifts and volunteers, click one button, and get a colour-coded match plan (filled / partial / unfilled), the drafted confirmations, and the help-needed broadcasts.
-
-Then I deployed it free on **Streamlit Community Cloud** so anyone can try it: [volunteer-shift-matcher.streamlit.app](https://volunteer-shift-matcher.streamlit.app/)
-
-Here's the security decision I'm most happy with. A public app with my AWS keys would let the whole internet spend my Bedrock budget. So the public demo runs **keyless** — it auto-detects the absence of credentials and defaults to an offline deterministic mode that still shows the full matching. For anyone who wants the *real* Bedrock experience, there's an optional panel to paste their **own temporary STS credentials** — held only in their browser session, never stored, and billed to their own account.
-
-> A web app can't borrow your AWS Console login — browser cross-site isolation forbids it — so short-lived STS credentials are the correct, secure equivalent.
-
-## The insight that made the demo honest
-
-Early on, my sample data made every shift fill perfectly. It looked great — and it was misleading. Real coordinators don't live in a perfect world.
-
-So I deliberately engineered the sample data so that one shift — a Saturday driver slot needing two people — can only be half-filled with the available pool. Now the demo shows the feature that actually matters: the agent flags the gap (*"need 1 more person for Saturday driver, 10am–1pm"*) and drafts the broadcast to close it. **Handling the imperfect case *is* the product.**
-
-## What I'd do next
-
-- Two-way integration: send the confirmations over SMS/Slack and ingest replies.
-- Recurring shifts and volunteer reliability history.
-- A "regenerate message in a warmer/shorter tone" button powered by the same agent.
-- Optionally deploy to Amazon Bedrock AgentCore Runtime for a managed HTTP endpoint.
-
-## Takeaways for other builders
-
-1. **Start with a person, not a prompt.** The one-sentence problem statement kept every decision honest.
-2. **Let deterministic code own the decisions that must be correct; let the LLM own the language.** That division is what makes an agent trustworthy.
-3. **Design your demo around the imperfect case** — that's where the value shows.
-4. **Never ship keys.** Environment variables, a gitignored `.env`, and a keyless public demo meant I could open-source everything with zero anxiety.
-
-Strands made the agent itself the easy part — a decorated function and a few lines to wire it up — which freed me to spend my time on the things that actually make a Good Neighbor Agent good: correctness, honesty about gaps, and a warm voice.
+The system prompt tells the agent to **always** call `match_shifts` for the assignments (never guess), then draft the messages and return one structured JSON object. Strands runs the loop — *reason → call tool → compose* — and I get back both the structured plan and the natural language, every time.
 
 ---
 
-**Try it:** [volunteer-shift-matcher.streamlit.app](https://volunteer-shift-matcher.streamlit.app/) · **Code:** [github.com/MakendranG/volunteer-shift-matcher](https://github.com/MakendranG/volunteer-shift-matcher)
+## ☁️ Using AWS
+
+The model provider is **Amazon Bedrock** (Claude Sonnet 4), the Strands default. A detail I'm proud of: **there are no hardcoded credentials anywhere.** The agent reads everything from the environment (or an IAM role), and `.env` is gitignored so no key can ever be committed.
+
+That discipline paid off the moment I added a public demo.
+
+---
+
+## 🖥️ Making it real: a visual UI + a public demo
+
+A CLI proves the agent works, but people want to *see* it. So I built a **Streamlit** front-end over the exact same agent: paste your shifts and volunteers, click one button, and get a colour-coded match plan, the drafted confirmations, and the help-needed broadcasts.
+
+![The match plan view — colour-coded filled / partial / unfilled shift cards](REPLACE_WITH_MATCHPLAN_SCREENSHOT_URL)
+
+Then I deployed it free on **Streamlit Community Cloud** so anyone can try it: **[volunteer-shift-matcher.streamlit.app](https://volunteer-shift-matcher.streamlit.app/)**
+
+Here's the security decision I'm most happy with. A public app carrying my AWS keys would let the whole internet spend my Bedrock budget. So the public demo runs **keyless** — it auto-detects the absence of credentials and defaults to an offline deterministic mode that still shows the full matching. Anyone who wants the *real* Bedrock experience can paste their **own temporary STS credentials** — held only in their browser session, never stored, billed to their own account.
+
+> 🔒 A web app can't borrow your AWS Console login — browser cross-site isolation forbids it — so short-lived STS credentials are the correct, secure equivalent.
+
+---
+
+## 🧠 The insight that made the demo honest
+
+Early on, my sample data made every shift fill perfectly. It looked great — and it was misleading. Real coordinators don't live in a perfect world.
+
+So I deliberately engineered the data so one shift — a **Saturday driver slot needing two people** — can only be half-filled. Now the demo shows the feature that actually matters: the agent flags the gap…
+
+> 📣 *"Hi neighbors! We still need 1 more person for Saturday driver, 10am–1pm. If you can lend a hand, please reply here — every bit helps. Thank you!"*
+
+…and drafts the broadcast to close it. **Handling the imperfect case *is* the product.**
+
+---
+
+## 🚀 What I'd do next
+
+- 🔁 Two-way integration: send confirmations over SMS/Slack and ingest replies
+- 📆 Recurring shifts and volunteer reliability history
+- 🎚️ A "regenerate in a warmer/shorter tone" button, powered by the same agent
+- ⚙️ Optional deploy to Amazon Bedrock AgentCore Runtime for a managed endpoint
+
+---
+
+## ✅ Takeaways for other builders
+
+1. **Start with a person, not a prompt.** A one-sentence problem statement kept every decision honest.
+2. **Split facts from language.** Deterministic code for what must be correct; the LLM for the human voice.
+3. **Design your demo around the imperfect case** — that's where the value shows.
+4. **Never ship keys.** Env vars + gitignored `.env` + a keyless public demo = open-source with zero anxiety.
+
+Strands made the agent the *easy* part — a decorated function and a few lines to wire it up — which freed me to focus on what makes a Good Neighbor Agent genuinely good: **correctness, honesty about gaps, and a warm voice.**
+
+---
+
+**🚀 Try it:** [volunteer-shift-matcher.streamlit.app](https://volunteer-shift-matcher.streamlit.app/)  ·  **📦 Code:** [github.com/MakendranG/volunteer-shift-matcher](https://github.com/MakendranG/volunteer-shift-matcher)
 
 *Built for the Agents for Humans hackathon — Good Neighbor Agents track. Uses only synthetic sample data; no real personal information.*
