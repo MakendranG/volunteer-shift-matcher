@@ -1,0 +1,23 @@
+flowchart LR
+    V["Volunteer data<br/>(skills + availability)"]
+    S["Shift data<br/>(role, date, time, needed)"]
+
+    subgraph AG["shift_matcher_agent — Strands Agents SDK"]
+        direction TB
+        L["Agent loop (LLM)"] -->|calls tool| T["match_shifts @tool<br/>deterministic Python:<br/>eligibility, no double-booking,<br/>flags gaps"]
+        T -->|verified match plan| D["LLM drafting layer<br/>(Amazon Bedrock / Claude)"]
+    end
+
+    V --> AG
+    S --> AG
+    AG --> O["Output:<br/>structured JSON + visual summary"]
+    O --> C["Confirmation messages<br/>(per assigned volunteer)"]
+    O --> B["Help-needed broadcasts<br/>(per unfilled / partial shift)"]
+
+    classDef brand fill:#0f766e,stroke:#0f766e,color:#fff;
+    classDef tool fill:#14b8a6,stroke:#0f766e,color:#fff;
+    classDef out fill:#ecfdf5,stroke:#14b8a6,color:#0f172a;
+    class AG,L brand;
+    class T,D tool;
+    class O,C,B out;
+    class V,S out;
