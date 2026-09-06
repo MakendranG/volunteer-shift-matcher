@@ -10,31 +10,46 @@ automates that matching and drafts the outreach messages.
 
 ## Data flow
 
+> A rendered image of this diagram is available at
+> [`docs/architecture.png`](./docs/architecture.png) (also used for the Devpost
+> submission). The Mermaid source below covers the five elements the hackathon
+> FAQ asks for: user interface, the Strands agent + agentic loop, tools &
+> integrations, AWS services used, and output.
+
 ```mermaid
 flowchart LR
+    UI["User interface<br/>(Streamlit web app / CLI)"]
+
     subgraph Inputs
         V["Volunteer data<br/>(name, email, roles,<br/>availability windows)"]
         S["Shift data<br/>(role, date, time,<br/>min_volunteers_needed)"]
     end
 
+    UI --> AG
     V --> AG
     S --> AG
 
-    subgraph Agent["shift_matcher_agent (Strands Agent)"]
+    subgraph Agent["shift_matcher_agent (Strands Agents SDK)"]
         direction TB
-        AG["Agent loop<br/>(LLM orchestration)"] -->|calls tool| T["match_shifts @tool<br/>(deterministic Python:<br/>eligibility + greedy assign,<br/>flags gaps)"]
-        T -->|match plan JSON| DRAFT["LLM drafting layer<br/>(warm confirmations +<br/>help-needed broadcasts)"]
+        AG["Agent loop (LLM orchestration)<br/>model → tools → reasoning → response"] -->|calls tool| T["Tool: match_shifts @tool<br/>(deterministic Python:<br/>eligibility + greedy assign,<br/>flags gaps)"]
+        T -->|match plan JSON| DRAFT["LLM drafting layer<br/>AWS: Amazon Bedrock (Claude)<br/>warm confirmations + broadcasts"]
     end
 
     AG --> OUT
     DRAFT --> OUT
 
     subgraph Output
-        OUT["Structured JSON<br/>+ human-readable console summary"]
+        OUT["Structured JSON<br/>+ human-readable / visual summary"]
         OUT --> C["Confirmation messages<br/>(per assigned volunteer)"]
         OUT --> B["Help-needed broadcasts<br/>(per unfilled/partial shift)"]
     end
 ```
+
+**Elements (per hackathon FAQ):** *User interface* — Streamlit web app or CLI ·
+*Strands Agents* — the `shift_matcher_agent` and its agentic loop · *Tools &
+integrations* — the deterministic `match_shifts` `@tool` · *AWS services* — Amazon
+Bedrock (Claude Sonnet 4) for message drafting · *Output* — structured JSON plus a
+visual/console summary (confirmations + help-needed broadcasts).
 
 ## How data flows through the system (in words)
 

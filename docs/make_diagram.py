@@ -77,9 +77,10 @@ def build_svg() -> str:
         f'fill="#475569">Built with the Strands Agents SDK · Good Neighbor Agents track</text>',
     ]
 
-    # Inputs (left)
-    parts.append(box(40, 130, 240, 80, "Volunteer data", "skills + availability", MINT, TEAL2, INK))
-    parts.append(box(40, 250, 240, 80, "Shift data", "role, date, time, needed", MINT, TEAL2, INK))
+    # Inputs (left) — including how the USER interacts (FAQ: user input/interface)
+    parts.append(box(40, 120, 240, 68, "User interface", "Streamlit web app / CLI", "#fef9c3", "#ca8a04", INK))
+    parts.append(box(40, 210, 240, 66, "Volunteer data", "skills + availability", MINT, TEAL2, INK))
+    parts.append(box(40, 296, 240, 66, "Shift data", "role, date, time, needed", MINT, TEAL2, INK))
 
     # Agent container (middle)
     parts.append(
@@ -90,12 +91,12 @@ def build_svg() -> str:
         f'<text x="560" y="138" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" '
         f'font-size="15" font-weight="800" fill="{TEAL}">shift_matcher_agent — Strands Agents SDK</text>'
     )
-    parts.append(box(370, 160, 380, 66, "Agent loop (LLM)", "", TEAL, TEAL, "#ffffff"))
+    parts.append(box(370, 160, 380, 66, "Agent loop (LLM)", "model -> tools -> reasoning -> response", TEAL, TEAL, "#ffffff"))
     parts.append(
-        box(370, 250, 380, 72, "match_shifts  @tool", "deterministic Python: eligibility,\nno double-booking, flags gaps", TEAL2, TEAL, "#ffffff")
+        box(370, 250, 380, 72, "Tool: match_shifts  @tool", "deterministic Python: eligibility,\nno double-booking, flags gaps", TEAL2, TEAL, "#ffffff")
     )
     parts.append(
-        box(370, 344, 380, 56, "LLM drafting layer", "Amazon Bedrock · Claude", TEAL2, TEAL, "#ffffff")
+        box(370, 344, 380, 56, "LLM drafting layer", "AWS: Amazon Bedrock (Claude)", TEAL2, TEAL, "#ffffff")
     )
     # internal arrows
     parts.append(arrow(560, 226, 560, 250, ""))
@@ -116,8 +117,9 @@ def build_svg() -> str:
     parts.append(box(840, 344, 320, 66, "Help-needed broadcasts", "per unfilled / partial shift", MINT, TEAL2, INK))
 
     # cross arrows
-    parts.append(arrow(280, 170, 340, 210))   # volunteer -> agent
-    parts.append(arrow(280, 290, 340, 250))   # shift -> agent
+    parts.append(arrow(280, 154, 340, 200))   # user interface -> agent
+    parts.append(arrow(280, 243, 340, 235))   # volunteer -> agent
+    parts.append(arrow(280, 329, 340, 270))   # shift -> agent
     parts.append(arrow(780, 260, 840, 200))   # agent -> output
     parts.append(arrow(1000, 200, 1000, 250)) # output -> confirmations
     parts.append(arrow(1000, 316, 1000, 344)) # output -> broadcasts
@@ -125,8 +127,8 @@ def build_svg() -> str:
     # footer note
     parts.append(
         f'<text x="40" y="640" font-family="Segoe UI, Arial, sans-serif" font-size="12.5" '
-        f'fill="#64748b">Deterministic tool owns the assignments (auditable); the LLM owns the '
-        f'natural-language messages. Synthetic data only; no hardcoded credentials.</text>'
+        f'fill="#64748b">User interface -> Strands agent loop -> match_shifts tool -> Amazon Bedrock -> output. '
+        f'Synthetic data only; no hardcoded credentials.</text>'
     )
 
     parts.append("</svg>")

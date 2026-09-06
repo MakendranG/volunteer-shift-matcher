@@ -22,3 +22,6 @@ dist/
 
 # OS / editor cruft
 .DS_Store
+
+# Hackathon rules copy (Devpost content — do not redistribute in the public repo)
+hackathon-rules.txt

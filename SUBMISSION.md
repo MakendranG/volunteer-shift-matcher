@@ -122,8 +122,14 @@ Safety before you push public:
 - [x] No hardcoded API keys anywhere — secret scan clean.
 - [x] Virtual env (`.venv/`) is gitignored and not committed.
 
-AI-tool disclosure (per rules):
-- [x] This project's code was written new during the submission period with the
-      help of an AI coding assistant, which the rules explicitly allow. No
-      pre-existing/reused AI-built project is incorporated. Disclose if your org
-      requires it.
+AI-tool disclosure (per rules & FAQ):
+- [x] This project was **newly created during the submission period** (Aug 10 –
+      Sep 14, 2026). Standard tools were used and are allowed without disclosure:
+      the Strands Agents SDK, open-source libraries (boto3, Streamlit, pytest),
+      and an AI coding assistant. No other pre-existing code or prior work is
+      incorporated, so there is nothing further to disclose. (Per the FAQ: when in
+      doubt, disclose — there is nothing here that requires it.)
+
+Data privacy (per FAQ):
+- [x] Uses only **synthetic sample data** — no real personal, health, or
+      financial information anywhere in the repo.
