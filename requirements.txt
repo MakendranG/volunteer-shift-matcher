@@ -1,0 +1,8 @@
+# Core Strands Agents SDK (provides `from strands import Agent, tool`)
+strands-agents>=1.0.0
+# Community tools package (optional but recommended alongside the SDK)
+strands-agents-tools>=0.2.0
+# Loads config from a local .env file (keeps API keys out of the code)
+python-dotenv>=1.0.0
+# Test runner
+pytest>=8.0.0

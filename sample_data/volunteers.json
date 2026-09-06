@@ -1,0 +1,69 @@
+[
+  {
+    "name": "Maria Alvarez",
+    "email": "maria.alvarez@example.com",
+    "roles": ["food sorting", "front desk"],
+    "availability": [
+      { "date": "2026-09-12", "start_time": "08:00", "end_time": "12:30" },
+      { "date": "2026-09-13", "start_time": "09:00", "end_time": "13:00" }
+    ]
+  },
+  {
+    "name": "James Chen",
+    "email": "james.chen@example.com",
+    "roles": ["food sorting"],
+    "availability": [
+      { "date": "2026-09-12", "start_time": "09:00", "end_time": "12:00" }
+    ]
+  },
+  {
+    "name": "Priya Patel",
+    "email": "priya.patel@example.com",
+    "roles": ["food sorting", "front desk"],
+    "availability": [
+      { "date": "2026-09-12", "start_time": "08:30", "end_time": "16:30" }
+    ]
+  },
+  {
+    "name": "David Okoro",
+    "email": "david.okoro@example.com",
+    "roles": ["front desk"],
+    "availability": [
+      { "date": "2026-09-12", "start_time": "12:00", "end_time": "17:00" },
+      { "date": "2026-09-13", "start_time": "13:00", "end_time": "18:00" }
+    ]
+  },
+  {
+    "name": "Sofia Rossi",
+    "email": "sofia.rossi@example.com",
+    "roles": ["driver"],
+    "availability": [
+      { "date": "2026-09-12", "start_time": "09:30", "end_time": "13:30" },
+      { "date": "2026-09-14", "start_time": "07:30", "end_time": "11:30" }
+    ]
+  },
+  {
+    "name": "Tom Becker",
+    "email": "tom.becker@example.com",
+    "roles": ["food sorting"],
+    "availability": [
+      { "date": "2026-09-13", "start_time": "08:00", "end_time": "12:30" }
+    ]
+  },
+  {
+    "name": "Aisha Mohammed",
+    "email": "aisha.mohammed@example.com",
+    "roles": ["front desk", "food sorting"],
+    "availability": [
+      { "date": "2026-09-13", "start_time": "13:30", "end_time": "17:30" }
+    ]
+  },
+  {
+    "name": "Liam Murphy",
+    "email": "liam.murphy@example.com",
+    "roles": ["driver", "front desk"],
+    "availability": [
+      { "date": "2026-09-13", "start_time": "10:00", "end_time": "15:00" }
+    ]
+  }
+]

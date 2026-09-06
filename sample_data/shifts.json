@@ -1,0 +1,50 @@
+[
+  {
+    "shift_id": "S1",
+    "role": "food sorting",
+    "date": "2026-09-12",
+    "start_time": "09:00",
+    "end_time": "12:00",
+    "min_volunteers_needed": 3
+  },
+  {
+    "shift_id": "S2",
+    "role": "front desk",
+    "date": "2026-09-12",
+    "start_time": "13:00",
+    "end_time": "16:00",
+    "min_volunteers_needed": 2
+  },
+  {
+    "shift_id": "S3",
+    "role": "driver",
+    "date": "2026-09-12",
+    "start_time": "10:00",
+    "end_time": "13:00",
+    "min_volunteers_needed": 2
+  },
+  {
+    "shift_id": "S4",
+    "role": "food sorting",
+    "date": "2026-09-13",
+    "start_time": "09:00",
+    "end_time": "12:00",
+    "min_volunteers_needed": 2
+  },
+  {
+    "shift_id": "S5",
+    "role": "front desk",
+    "date": "2026-09-13",
+    "start_time": "14:00",
+    "end_time": "17:00",
+    "min_volunteers_needed": 1
+  },
+  {
+    "shift_id": "S6",
+    "role": "driver",
+    "date": "2026-09-14",
+    "start_time": "08:00",
+    "end_time": "11:00",
+    "min_volunteers_needed": 1
+  }
+]
