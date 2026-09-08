@@ -77,7 +77,6 @@ short-lived STS credentials are the practical, secure equivalent.
 
 6. Put the public URL in:
    - the Devpost submission form (as the live demo link),
-   - `SUBMISSION.md` → "links to fill in",
    - the app sidebar / README if you like.
 
 ## Notes
